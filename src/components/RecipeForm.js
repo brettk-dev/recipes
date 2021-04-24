@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import IngredientForm from "./IngredientForm";
+import StepForm from "./StepForm";
 
 const RecipeForm = () => {
   const [name, setName] = useState("");
@@ -13,9 +14,7 @@ const RecipeForm = () => {
     setSteps([]);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const saveRecipe = () => {
     console.log({
       name,
       ingredients,
@@ -25,8 +24,26 @@ const RecipeForm = () => {
     resetForm();
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    saveRecipe();
+  };
+
   const addIngredient = (ingredient) => {
-    setIngredients(...ingredients, ingredient);
+    setIngredients([...ingredients, ingredient]);
+  };
+
+  const removeIngredient = (ingredient) => {
+    setIngredients(ingredients.filter((i) => i !== ingredient));
+  };
+
+  const addStep = (step) => {
+    setSteps([...steps, step]);
+  };
+
+  const removeStep = (index) => {
+    setSteps([...steps.slice(0, index), ...steps.slice(index + 1)]);
   };
 
   return (
@@ -46,29 +63,53 @@ const RecipeForm = () => {
         </div>
       </form>
 
-      <div>
+      <div className="w-max-c">
         <h2>Ingredients</h2>
         <ul>
           {ingredients.map((i) => (
             <li key={i}>
-              {i.qty} {i.unit} - {i.name}
+              <div className="d-flex">
+                <div className="flex-1">
+                  {i.qty} {i.unit} - {i.name}
+                </div>
+                <button
+                  type="button"
+                  className="ml-2"
+                  onClick={() => removeIngredient(i)}
+                >
+                  X
+                </button>
+              </div>
             </li>
           ))}
-          <li>
-            <IngredientForm onAdd={addIngredient} />
-          </li>
         </ul>
+        <IngredientForm className="ml-5" onAdd={addIngredient} />
       </div>
 
-      <div>
+      <div className="w-max-c">
         <h2>Steps</h2>
-        <ul>
-          {steps.map((s) => (
-            <li key={s}>{s}</li>
+        <ol>
+          {steps.map((s, i) => (
+            <li key={i}>
+              <div className="d-flex">
+                <span className="flex-1">{s}</span>
+                <button
+                  type="button"
+                  className="ml-2"
+                  onClick={() => removeStep(i)}
+                >
+                  X
+                </button>
+              </div>
+            </li>
           ))}
-          <li>[NEW STEP FORM]</li>
-        </ul>
+        </ol>
+        <StepForm className="ml-5" onAdd={addStep} />
       </div>
+
+      <button type="button" onClick={() => saveRecipe()}>
+        Save Recipe
+      </button>
     </>
   );
 };

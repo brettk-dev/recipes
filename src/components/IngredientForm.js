@@ -1,9 +1,15 @@
 import { useState } from "react";
 
-const IngredientForm = ({ onAdd }) => {
+const IngredientForm = ({ className, onAdd }) => {
   const [qty, setQty] = useState(1);
   const [unit, setUnit] = useState("");
   const [name, setName] = useState("");
+
+  const reset = () => {
+    setQty(1);
+    setUnit("");
+    setName("");
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -13,12 +19,14 @@ const IngredientForm = ({ onAdd }) => {
       unit,
       name,
     });
+
+    reset();
   };
 
   return (
-    <form className="d-flex" onSubmit={handleSubmit}>
+    <form className={`d-flex ${className}`} onSubmit={handleSubmit}>
       <div>
-        <label class="d-block" htmlFor="qty">
+        <label className="d-block" htmlFor="qty">
           Qty
         </label>
         <input
@@ -33,7 +41,7 @@ const IngredientForm = ({ onAdd }) => {
       </div>
 
       <div>
-        <label class="d-block" htmlFor="unit">
+        <label className="d-block" htmlFor="unit">
           Unit
         </label>
         <input
@@ -47,7 +55,7 @@ const IngredientForm = ({ onAdd }) => {
       </div>
 
       <div>
-        <label class="d-block" htmlFor="name">
+        <label className="d-block" htmlFor="name">
           Name
         </label>
         <input
@@ -58,6 +66,8 @@ const IngredientForm = ({ onAdd }) => {
           onChange={(e) => setName(e.currentTarget.value)}
         />
       </div>
+
+      <button type="submit">+</button>
     </form>
   );
 };

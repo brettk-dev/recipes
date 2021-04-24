@@ -18,3 +18,36 @@ code {
 .d-flex {
   display: flex;
 }
+
+.flex-1 {
+  flex: 1;
+}
+
+.ml-1 {
+  margin-left: calc(1 * 0.5rem);
+}
+.ml-2 {
+  margin-left: calc(2 * 0.5rem);
+}
+.ml-3 {
+  margin-left: calc(3 * 0.5rem);
+}
+.ml-4 {
+  margin-left: calc(4 * 0.5rem);
+}
+.ml-5 {
+  margin-left: calc(5 * 0.5rem);
+}
+.ml-6 {
+  margin-left: calc(6 * 0.5rem);
+}
+.ml-7 {
+  margin-left: calc(7 * 0.5rem);
+}
+.ml-8 {
+  margin-left: calc(8 * 0.5rem);
+}
+
+.w-max-c {
+  width: max-content;
+}
