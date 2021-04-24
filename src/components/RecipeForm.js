@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import IngredientForm from "./IngredientForm";
+
 const RecipeForm = () => {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
@@ -23,6 +25,10 @@ const RecipeForm = () => {
     resetForm();
   };
 
+  const addIngredient = (ingredient) => {
+    setIngredients(...ingredients, ingredient);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -44,9 +50,13 @@ const RecipeForm = () => {
         <h2>Ingredients</h2>
         <ul>
           {ingredients.map((i) => (
-            <li key={i}>{i}</li>
+            <li key={i}>
+              {i.qty} {i.unit} - {i.name}
+            </li>
           ))}
-          <li>[NEW INGREDIENT FORM]</li>
+          <li>
+            <IngredientForm onAdd={addIngredient} />
+          </li>
         </ul>
       </div>
 
